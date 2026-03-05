@@ -3,125 +3,119 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Modern To-Do App</title>
+<title>Ultimate To-Do App</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
 }
 
-body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #667eea, #764ba2);
-    transition: 0.3s;
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+    transition:.3s;
 }
 
-.container {
-    width: 380px;
-    background: rgba(255,255,255,0.15);
-    backdrop-filter: blur(15px);
-    padding: 25px;
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-    color: white;
+.container{
+    width:420px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    padding:25px;
+    border-radius:20px;
+    box-shadow:0 8px 32px rgba(0,0,0,0.3);
+    color:white;
 }
 
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
+h1{
+    text-align:center;
+    margin-bottom:20px;
 }
 
-.input-section {
-    display: flex;
-    gap: 10px;
+.input-section{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
 }
 
-input {
-    flex: 1;
-    padding: 10px;
-    border-radius: 10px;
-    border: none;
-    outline: none;
+input, select{
+    padding:10px;
+    border-radius:10px;
+    border:none;
+    outline:none;
 }
 
-button {
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: none;
-    cursor: pointer;
-    transition: 0.2s;
+button{
+    padding:8px 10px;
+    border-radius:10px;
+    border:none;
+    cursor:pointer;
+    font-size:13px;
 }
 
-.add-btn {
-    background: #00c6ff;
-    color: white;
+.add-btn{
+    background:#00c6ff;
+    color:white;
 }
 
-.add-btn:hover {
-    transform: scale(1.05);
+ul{
+    list-style:none;
+    margin-top:20px;
 }
 
-ul {
-    list-style: none;
-    margin-top: 20px;
+li{
+    background:rgba(255,255,255,0.2);
+    padding:10px;
+    margin-bottom:10px;
+    border-radius:10px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
 }
 
-li {
-    background: rgba(255,255,255,0.2);
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.2s;
+.task-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
 }
 
-li:hover {
-    background: rgba(255,255,255,0.3);
+.completed{
+    text-decoration:line-through;
+    opacity:0.6;
 }
 
-.completed {
-    text-decoration: line-through;
-    opacity: 0.6;
+.task-buttons{
+    display:flex;
+    gap:5px;
 }
 
-.delete-btn {
-    background: #ff4b5c;
-    color: white;
+.delete-btn{ background:#ff4b5c; color:white; }
+.edit-btn{ background:#ffc107; }
+.priority-high{ color:#ff4b5c; font-weight:bold; }
+.priority-medium{ color:#ffc107; font-weight:bold; }
+.priority-low{ color:#00ffcc; font-weight:bold; }
+
+.bottom{
+    display:flex;
+    justify-content:space-between;
+    margin-top:15px;
 }
 
-.bottom-section {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-    font-size: 14px;
+.dark{
+    background:linear-gradient(135deg,#141e30,#243b55);
 }
 
-#clearAll {
-    background: black;
-    color: white;
+.toggle-theme{
+    position:absolute;
+    top:20px;
+    right:20px;
+    background:white;
 }
-
-.toggle-theme {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    background: white;
-    color: black;
-}
-
-/* Dark Mode */
-.dark {
-    background: linear-gradient(135deg, #141e30, #243b55);
-}
-
 </style>
 </head>
 
@@ -130,110 +124,175 @@ li:hover {
 <button class="toggle-theme" onclick="toggleTheme()">🌙</button>
 
 <div class="container">
-    <h1>✨ My Tasks</h1>
+<h1>🚀 Ultimate To-Do</h1>
 
-    <div class="input-section">
-        <input type="text" id="taskInput" placeholder="Enter a task">
-        <button class="add-btn" onclick="addTask()">Add</button>
-    </div>
+<div class="input-section">
+<input type="text" id="taskInput" placeholder="Task name">
+<input type="date" id="dueDate">
+<select id="priority">
+<option value="low">Low Priority</option>
+<option value="medium">Medium Priority</option>
+<option value="high">High Priority</option>
+</select>
+<button class="add-btn" onclick="addTask()">Add Task</button>
+</div>
 
-    <ul id="taskList"></ul>
+<ul id="taskList"></ul>
 
-    <div class="bottom-section">
-        <p id="taskCount">Total Tasks: 0</p>
-        <button id="clearAll">Clear All</button>
-    </div>
+<div class="bottom">
+<p id="taskCount">Total: 0</p>
+<button onclick="clearAll()">Clear All</button>
+</div>
+
 </div>
 
 <script>
 
-document.addEventListener("DOMContentLoaded", function () {
-    loadTasks();
-    updateTaskCount();
+document.addEventListener("DOMContentLoaded", loadTasks);
 
-    document.getElementById("clearAll").addEventListener("click", function () {
-        localStorage.removeItem("tasks");
-        document.getElementById("taskList").innerHTML = "";
-        updateTaskCount();
-    });
-});
+function addTask(){
+    let text=document.getElementById("taskInput").value.trim();
+    let date=document.getElementById("dueDate").value;
+    let priority=document.getElementById("priority").value;
 
-function addTask() {
-    let input = document.getElementById("taskInput");
-    let taskText = input.value.trim();
+    if(text===""){ alert("Enter task!"); return; }
 
-    if (taskText === "") {
-        alert("Enter a task!");
-        return;
-    }
+    let task={text, date, priority, completed:false};
+    createTask(task);
+    saveTask(task);
+    updateCount();
 
-    createTaskElement(taskText, false);
-    saveTask(taskText);
-
-    input.value = "";
-    updateTaskCount();
+    document.getElementById("taskInput").value="";
 }
 
-function createTaskElement(taskText, completed) {
-    let li = document.createElement("li");
+function createTask(task){
+    let li=document.createElement("li");
+    li.draggable=true;
 
-    let span = document.createElement("span");
-    span.innerText = taskText;
+    let top=document.createElement("div");
+    top.className="task-top";
 
-    if (completed) span.classList.add("completed");
+    let span=document.createElement("span");
+    span.innerText=task.text;
+    if(task.completed) span.classList.add("completed");
 
-    span.addEventListener("click", function () {
+    span.onclick=function(){
         span.classList.toggle("completed");
         updateStorage();
-    });
-
-    let deleteBtn = document.createElement("button");
-    deleteBtn.innerText = "Delete";
-    deleteBtn.className = "delete-btn";
-
-    deleteBtn.onclick = function () {
-        li.remove();
-        updateStorage();
-        updateTaskCount();
     };
 
-    li.appendChild(span);
-    li.appendChild(deleteBtn);
+    let buttons=document.createElement("div");
+    buttons.className="task-buttons";
+
+    let edit=document.createElement("button");
+    edit.innerText="Edit";
+    edit.className="edit-btn";
+    edit.onclick=function(){
+        let newText=prompt("Edit task:", span.innerText);
+        if(newText){ span.innerText=newText; updateStorage(); }
+    };
+
+    let del=document.createElement("button");
+    del.innerText="Delete";
+    del.className="delete-btn";
+    del.onclick=function(){
+        li.remove();
+        updateStorage();
+        updateCount();
+    };
+
+    buttons.appendChild(edit);
+    buttons.appendChild(del);
+
+    top.appendChild(span);
+    top.appendChild(buttons);
+
+    let bottom=document.createElement("div");
+    bottom.innerHTML=`📅 ${task.date || "No date"} | <span class="priority-${task.priority}">${task.priority.toUpperCase()}</span>`;
+
+    li.appendChild(top);
+    li.appendChild(bottom);
+
+    addDragAndDrop(li);
+
     document.getElementById("taskList").appendChild(li);
 }
 
-function saveTask(taskText) {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.push({ text: taskText, completed: false });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+function saveTask(task){
+    let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+    tasks.push(task);
+    localStorage.setItem("tasks",JSON.stringify(tasks));
 }
 
-function loadTasks() {
-    let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-    tasks.forEach(task => createTaskElement(task.text, task.completed));
+function loadTasks(){
+    let tasks=JSON.parse(localStorage.getItem("tasks"))||[];
+    tasks.forEach(task=>createTask(task));
+    updateCount();
 }
 
-function updateStorage() {
-    let tasks = [];
-    document.querySelectorAll("#taskList li").forEach(li => {
-        let text = li.querySelector("span").innerText;
-        let completed = li.querySelector("span").classList.contains("completed");
-        tasks.push({ text, completed });
+function updateStorage(){
+    let tasks=[];
+    document.querySelectorAll("#taskList li").forEach(li=>{
+        let text=li.querySelector("span").innerText;
+        let completed=li.querySelector("span").classList.contains("completed");
+        let info=li.children[1].innerText.split("|");
+        let date=info[0].replace("📅","").trim();
+        let priority=info[1].trim().toLowerCase();
+        tasks.push({text,date,priority,completed});
     });
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-    updateTaskCount();
+    localStorage.setItem("tasks",JSON.stringify(tasks));
+    updateCount();
 }
 
-function updateTaskCount() {
-    let total = document.querySelectorAll("#taskList li").length;
-    document.getElementById("taskCount").innerText = "Total Tasks: " + total;
+function clearAll(){
+    localStorage.removeItem("tasks");
+    document.getElementById("taskList").innerHTML="";
+    updateCount();
 }
 
-function toggleTheme() {
+function updateCount(){
+    let total=document.querySelectorAll("#taskList li").length;
+    document.getElementById("taskCount").innerText="Total: "+total;
+}
+
+function toggleTheme(){
     document.body.classList.toggle("dark");
 }
 
-</script>
+/* Drag and Drop */
+function addDragAndDrop(item){
+    item.addEventListener("dragstart",()=>item.classList.add("dragging"));
+    item.addEventListener("dragend",()=>{
+        item.classList.remove("dragging");
+        updateStorage();
+    });
+}
 
+document.getElementById("taskList").addEventListener("dragover",e=>{
+    e.preventDefault();
+    const dragging=document.querySelector(".dragging");
+    const afterElement=getDragAfterElement(e.clientY);
+    const list=document.getElementById("taskList");
+    if(afterElement==null){
+        list.appendChild(dragging);
+    }else{
+        list.insertBefore(dragging,afterElement);
+    }
+});
+
+function getDragAfterElement(y){
+    const items=[...document.querySelectorAll("#taskList li:not(.dragging)")];
+    return items.reduce((closest,child)=>{
+        const box=child.getBoundingClientRect();
+        const offset=y-box.top-box.height/2;
+        if(offset<0 && offset>closest.offset){
+            return {offset:offset, element:child};
+        }else{
+            return closest;
+        }
+    },{offset:Number.NEGATIVE_INFINITY}).element;
+}
+
+</script>
 </body>
 </html>
